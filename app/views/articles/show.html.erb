@@ -1,0 +1,35 @@
+<h1><%= @article.title %></h1>
+
+<div id="divMain" style="font-family:<%= @article.Font %>;font-size:<%= @article.FontSize %>px;text-align:<%= @article.Format %>;"><%= @article.body %></div>
+
+<script>
+    function htmlDecode(input){
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
+    }
+
+    
+    document.getElementById("divMain").innerHTML = htmlDecode(document.getElementById("divMain").innerHTML);
+</script>
+
+<img src=<%= @article.image %> alt="..."><br>
+
+
+
+<div>
+<%= button_to "Edit", edit_article_path(@article), method: :get %>
+<%= button_to "Destroy", @article , 
+                        method: :delete, 
+                        data: { confirm: 'Are you sure?' } %>
+</div>
+
+<h2>Comments</h2>
+<%= render @article.comments %>
+
+<h2>Add a comment:</h2>
+<%= render 'comments/form' %>
+
+<div>
+<%= button_to "Back", "/", method: :get %>
+</div>
